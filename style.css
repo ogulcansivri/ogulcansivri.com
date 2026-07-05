@@ -1,0 +1,555 @@
+/* Matrix CSS Variables */
+:root {
+    --bg-color: #000000;
+    --matrix-green: #00ff41;
+    --matrix-green-glow: rgba(0, 255, 65, 0.75);
+    --matrix-green-dim: #008f11;
+    --matrix-green-dark: #002200;
+    --matrix-green-bg: rgba(0, 34, 0, 0.15);
+    --font-mono: 'Share Tech Mono', 'Courier New', Courier, monospace;
+    --crt-flicker: crt-flicker 0.15s infinite;
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--matrix-green);
+    font-family: var(--font-mono);
+    min-height: 100vh;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--matrix-green-dim) var(--bg-color);
+}
+
+/* Custom Monospace Scrollbars */
+body::-webkit-scrollbar {
+    width: 8px;
+}
+body::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+body::-webkit-scrollbar-thumb {
+    background: var(--matrix-green-dim);
+    border-radius: 4px;
+    border: 2px solid var(--bg-color);
+}
+body::-webkit-scrollbar-thumb:hover {
+    background: var(--matrix-green);
+}
+
+/* CRT Screen Effect Overlay */
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.8) 120%);
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.25) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 9998;
+}
+
+/* Matrix Digital Rain Canvas */
+#matrix-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.35; /* Blends nicely with the background video */
+}
+
+/* Video Container & Modern Filters */
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    transition: opacity 0.8s ease-in-out;
+}
+
+#scroll-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Applied modern surveillance camera style filters */
+    filter: grayscale(1) contrast(1.2) brightness(0.85);
+    display: block;
+}
+
+/* Green Cybernetic Color Tint Overlay */
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Apply matrix color tint on top of grayscale video */
+    background-color: rgba(0, 255, 65, 0.12);
+    mix-blend-mode: color;
+    pointer-events: none;
+}
+
+/* Floating HUD HUD Overlay */
+.hud-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    pointer-events: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 30px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.hud-container.visible {
+    opacity: 1;
+}
+
+.hud-box {
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--matrix-green-dim);
+    padding: 15px;
+    font-size: 0.85rem;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.15);
+    backdrop-filter: blur(5px);
+    max-width: 320px;
+    pointer-events: auto;
+}
+
+.hud-left {
+    align-self: flex-start;
+    margin-top: 30px;
+    border-left: 3px solid var(--matrix-green);
+}
+
+.hud-right {
+    align-self: flex-start;
+    margin-top: 30px;
+    border-right: 3px solid var(--matrix-green);
+    text-align: right;
+}
+
+.hud-header {
+    color: var(--matrix-green);
+    font-weight: bold;
+    border-bottom: 1px solid var(--matrix-green-dark);
+    padding-bottom: 5px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.hud-log {
+    color: var(--matrix-green-dim);
+    min-height: 38px;
+    font-size: 0.8rem;
+}
+
+.hud-system-info {
+    font-size: 0.7rem;
+    color: var(--matrix-green-dark);
+    margin-top: 5px;
+}
+
+.hud-progress {
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    color: var(--matrix-green);
+    text-shadow: 0 0 5px var(--matrix-green-glow);
+}
+
+/* Scroll Wrapper and Content Sections */
+.scroll-wrapper {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+}
+
+/* Hero Section style */
+.hero-section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: transparent;
+}
+
+.hero-content {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.75);
+    border: 1px solid var(--matrix-green-dim);
+    padding: 40px;
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.15);
+    backdrop-filter: blur(5px);
+    max-width: 90%;
+    width: 650px;
+    border-radius: 4px;
+}
+
+.terminal-prefix {
+    color: var(--matrix-green-dim);
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+/* Glitch Title Effect */
+.glitch-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: var(--matrix-green);
+    letter-spacing: 4px;
+    position: relative;
+    text-shadow: 0 0 10px var(--matrix-green-glow);
+    margin-bottom: 15px;
+}
+
+/* Glitch keyframe setups trigger periodically (animated on/off cycle in 6 seconds) */
+.glitch-title::before,
+.glitch-title::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+.glitch-title::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00ff;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim-1 6s infinite linear alternate-reverse;
+}
+
+.glitch-title::after {
+    left: -2px;
+    text-shadow: -2px 0 #00ffff, 0 2px #ff00ff;
+    clip: rect(85px, 450px, 140px, 0);
+    animation: glitch-anim-2 6s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+    0%, 90% {
+        clip: rect(0, 0, 0, 0);
+    }
+    91% {
+        clip: rect(10px, 9999px, 30px, 0);
+    }
+    92% {
+        clip: rect(40px, 9999px, 80px, 0);
+    }
+    93% {
+        clip: rect(0, 0, 0, 0);
+    }
+    94% {
+        clip: rect(80px, 9999px, 100px, 0);
+    }
+    95% {
+        clip: rect(0, 0, 0, 0);
+    }
+}
+
+@keyframes glitch-anim-2 {
+    0%, 90% {
+        clip: rect(0, 0, 0, 0);
+    }
+    91% {
+        clip: rect(30px, 9999px, 60px, 0);
+    }
+    92% {
+        clip: rect(70px, 9999px, 90px, 0);
+    }
+    93% {
+        clip: rect(0, 0, 0, 0);
+    }
+    94% {
+        clip: rect(20px, 9999px, 50px, 0);
+    }
+    95% {
+        clip: rect(0, 0, 0, 0);
+    }
+}
+
+.subtitle {
+    color: #ffffff;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.scroll-prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.scroll-text {
+    font-size: 0.8rem;
+    color: var(--matrix-green-dim);
+    letter-spacing: 1px;
+    animation: pulse 1.8s infinite;
+}
+
+.arrow {
+    font-size: 1rem;
+    animation: bounce 1.8s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+}
+
+/* Terminal Section (Bottom Page) */
+.terminal-section {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.9) 30%, #000000 100%);
+    position: relative;
+    z-index: 15;
+}
+
+.terminal-window {
+    width: 100%;
+    max-width: 800px;
+    border: 1px solid var(--matrix-green);
+    box-shadow: 0 0 25px rgba(0, 255, 65, 0.25);
+    background-color: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(10px);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.terminal-header-bar {
+    background-color: #0d0d0d;
+    border-bottom: 1px solid var(--matrix-green-dark);
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+}
+
+.terminal-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.dot.close { background-color: #ff5f56; }
+.dot.minimize { background-color: #ffbd2e; }
+.dot.expand { background-color: #27c93f; }
+
+.terminal-title {
+    color: var(--matrix-green-dim);
+    font-size: 0.85rem;
+    margin-left: 20px;
+    letter-spacing: 0.5px;
+}
+
+.terminal-body {
+    padding: 20px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    height: 380px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: thin;
+    scrollbar-color: var(--matrix-green-dark) #000;
+}
+
+.terminal-body::-webkit-scrollbar {
+    width: 6px;
+}
+.terminal-body::-webkit-scrollbar-track {
+    background: #000000;
+}
+.terminal-body::-webkit-scrollbar-thumb {
+    background: var(--matrix-green-dark);
+    border-radius: 3px;
+}
+
+.terminal-output {
+    flex-grow: 1;
+}
+
+.terminal-output div {
+    margin-bottom: 6px;
+    word-break: break-all;
+}
+
+.terminal-prompt-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.prompt-text {
+    color: var(--matrix-green);
+    white-space: nowrap;
+}
+
+#terminal-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    flex-grow: 1;
+    caret-color: var(--matrix-green);
+    box-shadow: none;
+}
+
+.highlight {
+    color: #ffffff;
+    background-color: var(--matrix-green-dark);
+    padding: 0 4px;
+    border-radius: 2px;
+}
+
+.terminal-link {
+    color: var(--matrix-green);
+    text-decoration: underline;
+    text-shadow: 0 0 3px var(--matrix-green-glow);
+    transition: color 0.2s;
+}
+.terminal-link:hover {
+    color: #ffffff;
+}
+
+.terminal-shortcuts {
+    background-color: #0d0d0d;
+    border-top: 1px solid var(--matrix-green-dark);
+    padding: 12px 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.shortcut-btn {
+    background-color: transparent;
+    border: 1px solid var(--matrix-green-dim);
+    color: var(--matrix-green-dim);
+    padding: 6px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s ease-in-out;
+}
+
+.shortcut-btn:hover {
+    background-color: var(--matrix-green-dark);
+    color: var(--matrix-green);
+    border-color: var(--matrix-green);
+    box-shadow: 0 0 8px rgba(0, 255, 65, 0.2);
+}
+
+/* Prefers Reduced Motion settings */
+@media (prefers-reduced-motion: reduce) {
+    .glitch-title::before,
+    .glitch-title::after {
+        content: none;
+    }
+    .glitch-title {
+        animation: none;
+    }
+    #matrix-canvas {
+        display: none;
+    }
+    .arrow, .scroll-text {
+        animation: none;
+    }
+    .scanlines {
+        background-size: 100% 100%;
+        background: rgba(0, 0, 0, 0.05);
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .glitch-title {
+        font-size: 2.2rem;
+    }
+    .subtitle {
+        font-size: 0.95rem;
+    }
+    .hud-container {
+        padding: 15px;
+    }
+    .hud-box {
+        max-width: 140px;
+        font-size: 0.7rem;
+        padding: 8px;
+    }
+    .hud-log {
+        min-height: 28px;
+        font-size: 0.65rem;
+    }
+    .hud-progress {
+        font-size: 0.75rem;
+    }
+    .terminal-body {
+        height: 320px;
+    }
+    .shortcut-btn {
+        padding: 4px 10px;
+        font-size: 0.75rem;
+    }
+}

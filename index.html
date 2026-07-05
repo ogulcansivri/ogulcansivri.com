@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oğulcan Sivri | Developer</title>
+    
+    <!-- Meta tags for SEO & Social Previews -->
+    <meta name="description" content="Oğulcan Sivri - Developer. Matrix tarzında hazırlanmış, scroll tabanlı interaktif kişisel web sitesi.">
+    <meta name="author" content="Oğulcan Sivri">
+    <meta property="og:title" content="Oğulcan Sivri | Developer">
+    <meta property="og:description" content="Matrix tarzında hazırlanmış, scroll tabanlı interaktif kişisel web sitesi.">
+    <meta property="og:image" content="assets/coding.mp4">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon (Inline SVG Matrix Terminal Prompt) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23000000%22/><text y=%2272%22 x=%2210%22 fill=%22%2300ff41%22 font-family=%22monospace%22 font-weight=%22bold%22 font-size=%2275%22>&gt;_</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- CRT Overlay & Scanlines for Retro Monitor Feel -->
+    <div class="crt-overlay"></div>
+    <div class="scanlines"></div>
+
+    <!-- Matrix Digital Rain Canvas -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Background Video Container -->
+    <div class="video-container" id="video-container">
+        <!-- Grayscale + Contrast applied in CSS, overlay handles color -->
+        <video id="scroll-video" playsinline muted preload="auto">
+            <source src="assets/coding.mp4" type="video/mp4">
+            Tarayıcınız video oynatmayı desteklemiyor.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Floating HUD Elements overlaying the video during scroll -->
+    <div class="hud-container" id="hud-container">
+        <div class="hud-box hud-left">
+            <div class="hud-header">// SYSTEM STATUS //</div>
+            <div class="hud-log" id="hud-log">INITIALIZING SYSTEM DATA...</div>
+            <div class="hud-system-info">IP: DECRYPTED // PORT: 8000 // CORE: ACTIVE</div>
+        </div>
+        <div class="hud-box hud-right">
+            <div class="hud-header">// SCROLL DECRYPTION //</div>
+            <div class="hud-progress" id="hud-progress">[----------] 0%</div>
+        </div>
+    </div>
+
+    <!-- Scroll Wrapper -->
+    <div class="scroll-wrapper">
+        <!-- Intro Hero Section -->
+        <section class="hero-section" id="hero">
+            <div class="hero-content">
+                <div class="terminal-prefix">&gt; SYSTEM READY. DECRYPTION KEY DETECTED.</div>
+                <h1 class="glitch-title" data-text="OĞULCAN SİVRİ">OĞULCAN SİVRİ</h1>
+                <p class="subtitle">&gt;_ MOLECULAR BIOLOGIST &amp; GENETICIST</p>
+                <div class="scroll-prompt">
+                    <span class="arrow">▼</span>
+                    <span class="scroll-text">VERİ AKIŞINI BAŞLATMAK İÇİN AŞAĞI KAYDIRIN</span>
+                    <span class="arrow">▼</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Spacer sections that create scroll height to scrub the video -->
+        <div class="scroll-spacer" style="height: 300vh;"></div>
+
+        <!-- Terminal Section at the Bottom -->
+        <section class="terminal-section" id="terminal-section">
+            <div class="terminal-window">
+                <!-- Terminal Header Bar -->
+                <div class="terminal-header-bar">
+                    <div class="terminal-dots">
+                        <span class="dot close"></span>
+                        <span class="dot minimize"></span>
+                        <span class="dot expand"></span>
+                    </div>
+                    <div class="terminal-title">ogulcansivri@matrix:~</div>
+                    <div class="terminal-spacer"></div>
+                </div>
+                
+                <!-- Terminal Body -->
+                <div class="terminal-body">
+                    <div class="terminal-output" id="terminal-output">
+                        <div>Sistem başarıyla çözümlendi. Bağlantı kuruldu.</div>
+                        <div>Oğulcan Sivri Kişisel Terminali v1.0.0'a hoş geldiniz.</div>
+                        <br>
+                        <div>Komut listesini görmek için <span class="highlight">help</span> yazın veya aşağıdaki kısayolları kullanın.</div>
+                        <br>
+                    </div>
+                    
+                    <!-- Terminal Prompt & Input -->
+                    <div class="terminal-prompt-line">
+                        <span class="prompt-text">ogulcansivri@matrix:~$</span>
+                        <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" autofocus>
+                    </div>
+                </div>
+                
+                <!-- Quick Command Buttons for Easy Clicking (Mobile-Friendly) -->
+                <div class="terminal-shortcuts">
+                    <button class="shortcut-btn" data-command="help">help</button>
+                    <button class="shortcut-btn" data-command="about">about</button>
+                    <button class="shortcut-btn" data-command="contact">contact</button>
+                    <button class="shortcut-btn" data-command="github">github</button>
+                    <button class="shortcut-btn" data-command="linkedin">linkedin</button>
+                    <button class="shortcut-btn" data-command="matrix">matrix</button>
+                    <button class="shortcut-btn" data-command="clear">clear</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
